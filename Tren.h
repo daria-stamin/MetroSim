@@ -1,7 +1,6 @@
-#include <iostream>
 #ifndef METROSIM_TREN_H
 #define METROSIM_TREN_H
-
+#include <iostream>
 
 class Tren {
 protected:

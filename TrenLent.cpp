@@ -10,7 +10,8 @@ TrenLent::TrenLent() {
 
 TrenLent::TrenLent(int capacitate, float viteza, int pret) : Tren(capacitate, viteza, pret) {}
 
-TrenLent::TrenLent(const TrenLent& obj) : Tren(obj) {}
+TrenLent::TrenLent(const TrenLent& obj) : Tren(obj) {
+}
 
 TrenLent& TrenLent::operator=(const TrenLent& obj) {
     if (this != &obj) {

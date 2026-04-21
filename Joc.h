@@ -4,9 +4,28 @@
 
 #ifndef METROSIM_JOC_H
 #define METROSIM_JOC_H
-
+#include <vector>
+#include "Linie.h"
 
 class Joc {
+    int bani;
+    int turaCurenta;
+    int maxTure;
+    std::vector<Linie> linii;
+public:
+    Joc();
+
+    void ruleazaJoc();
+    void ruleazaTura();
+
+    void afiseazaStatus() const;
+    void meniu();
+
+    void cumparaLinie();
+    void cumparaTren();
+    void extindeLinie();
+
+    void afiseazaTot() const;
 };
 
 
