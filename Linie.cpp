@@ -105,7 +105,7 @@ std::ostream& operator<<(std::ostream& out, const Linie& obj) {
     out << "Trenuri: ";
     for (int i = 0; i < obj.trenuri.size(); i++) {
         obj.trenuri[i]->afisare();
-        out << "\n";
+        out << " ";
     }
 
     return out;

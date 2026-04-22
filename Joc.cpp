@@ -62,6 +62,35 @@ Joc::Joc() {
     liniiBlocate.push_back(M3);
 }
 
+void Joc::poveste() {
+    std::cout << R"(
+                    ---------- MetroSim ----------
+
+
+        Dupa al 67-lea refuz de angajare de la o companie IT te dai batut.
+    Poate viata corporatista nu e de tine...
+
+    Cu coada intre picioare o iei incet-incet spre metrou Pipera.
+
+    In metrou gasesti urmatorul anunt:
+
+    *******************************************************************************************
+        MeroRex isi mareste echipa!
+
+    Intership pe 3 luni in echipa de management. Dupa perioada de proba daca totul merge bine
+    garantam JOB.
+    *******************************************************************************************
+
+    Ai 3 luni la dispozitie (90 de ture) sa maresti sistemul de trenuri si sa faci profit
+    companiei de 50.000 de bani.
+
+    Succes!!
+
+    Press 0 to continue: )";
+    int x;
+    std::cin>>x;
+}
+
 void Joc::ruleazaJoc() {
     while (turaCurenta < maxTure) {
         afiseazaStatus();
@@ -69,7 +98,7 @@ void Joc::ruleazaJoc() {
         ruleazaTura();
     }
 
-    if (bani >= 100000)
+    if (bani >= 50000)
         std::cout << "AI CASTIGAT!\n";
     else
         std::cout << "AI PIERDUT!\n";
@@ -84,6 +113,49 @@ void Joc::ruleazaTura() {
     turaCurenta++;
 
     std::cout<< "Ai castigat: " << venitTotal << " bani\n";
+}
+
+void Joc::meniuLoading() {
+    std::cout << R"(
+    ---------- MetroSim ----------
+
+
+   ___________   ___________________________________________
+    ___   ___ |||  ___   ___   ___    ___ ___  |   __  ,----\
+   |   | |   |||| |   | |   | |   |  |   |   | |  |  | |_____\
+   |___| |___|||| |___| |___| |___|  | O | O | |  |  |        \
+              |||                    |___|___| |  |__|         )
+   ___________|||______________________________|______________/
+              |||                                        /--------
+   -----------'''---------------------------------------'
+
+   0. New Game
+   1. Continue Game
+   2. Quit
+
+    Press the number: )";
+    int n;
+    std::cin>>n;
+    switch (n) {
+        case(0):
+        {
+            system("CLS");
+            poveste();
+            system("CLS");
+            ruleazaJoc();
+            break;
+        }
+        case(1):
+        {
+
+            break;
+        }
+        case(2):
+        {
+            return;
+            break;
+        }
+    }
 }
 
 void Joc::afiseazaStatus() const {
@@ -123,8 +195,7 @@ void Joc::cumparaLinie(){
         std::cout<<"Invalid number! Try again.\n";
         std::cin>>x;
     }
-    system("CLS");
-    meniu();
+    return;
 
 }
 void Joc::cumparaTren(){
@@ -132,7 +203,7 @@ void Joc::cumparaTren(){
     std::cout<<"Un Tren Normal costa 3.000 de bani."<<std::endl;
     std::cout<<"Un Tren Rapid costa 5.000 de bani."<<std::endl;
     int index;
-    std::cout << "Alege linia: ";
+    std::cout << "Alege linia: "<<'\n';
     for (int i=0; i < linii.size(); i++) {
         std::cout<<i<<std::endl;
     }
@@ -186,8 +257,8 @@ void Joc::cumparaTren(){
         std::cout<<"Invalid number! Try again.\n";
         std::cin>>x;
     }
-    system("CLS");
-    meniu();
+    return;
+
 }
 void Joc::extindeLinie() {
     std::cout << "Statie noua costa 8000 bani.\n";
@@ -223,15 +294,15 @@ void Joc::extindeLinie() {
     int x;
     std::cin >> x;
 
-    system("CLS");
+    return;
 }
 void Joc::afiseazaTot() const{
 
     for (int i = 0; i < linii.size(); i++) {
-        std::cout << "\nLinia " << i+1 << ":\n";
-
+        std::cout << "\nLinia " << i << ":\n";
         std::cout << linii[i] << "\n";
     }
+
 }
 
 
@@ -257,43 +328,36 @@ void Joc::meniu() {
     {
         case(1):
         {
-           // system("CLS");
+            system("CLS");
             cumparaLinie();
+            system("CLS");
+            afiseazaStatus();
+            meniu();
             break;
         }
         case(2):
         {
-            //system("CLS");
+            system("CLS");
             cumparaTren();
+            system("CLS");
+            afiseazaStatus();
+            meniu();
             break;
         }
         case(3):
         {
-           // system("CLS");
+            system("CLS");
             extindeLinie();
+            system("CLS");
+            afiseazaStatus();
+            meniu();
+            break;
+        }case(0):
+        {
+            system("CLS");
             break;
         }
 
 
     }
 }
-
-// M1.adaugaStatie("Dristor 2");
-// M1.adaugaStatie("Obor");
-// M1.adaugaStatie("Gara de Nord");
-// M1.adaugaStatie("Eroiilor");
-// M1.adaugaStatie("Izvor");
-// M1.adaugaStatie("Republica");
-
-// M2.adaugaStatie("Universitate");
-// M2.adaugaStatie("Unirii");
-// M2.adaugaStatie("Berceni");
-
-// M3.adaugaStatie("Preciziei");
-// M3.adaugaStatie("Gorjului");
-// M3.adaugaStatie("Lujerului");
-// M3.adaugaStatie("Timpuri Noi");
-// M3.adaugaStatie("Dristor 1");
-// M3.adaugaStatie("Anghel Salingy");
-
-

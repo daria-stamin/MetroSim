@@ -46,6 +46,3 @@ int Statie::genereazaCerere() {
     return randomNum;
 }
 
-const std::string& getName() {
-   // return name;
- }

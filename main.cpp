@@ -10,7 +10,7 @@
 int main() {
 
     Joc a;
-    a.ruleazaJoc();
+    a.meniuLoading();
 
     return 0;
 }
