@@ -10,12 +10,12 @@
 
 class Statie {
     std::string name;
-    int cererePAsageri;
+
 
 public:
 
     Statie();
-    Statie(std::string name, int cererePAsageri);
+    Statie(std::string name);
     Statie(const Statie &obj);
 
     Statie &operator=(const Statie &obj);

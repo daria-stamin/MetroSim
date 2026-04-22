@@ -8,7 +8,7 @@
 TrenNormal::TrenNormal() {
     this->capacitate = 20;
     this->viteza = 50;
-    this->pret = 2000;
+    this->pret = 3000;
 }
 
 TrenNormal::TrenNormal(int capacitate, float viteza, int pret) : Tren(capacitate, viteza, pret) {}
@@ -29,8 +29,8 @@ float TrenNormal::calculeazaEficienta() const {
 }
 
 void TrenNormal::afisare() const {
-    std::cout << "Tren Normal:\n";
-    std::cout << *this;
+    std::cout << "Tren Normal; ";
+   // std::cout << *this;
 }
 
 std::istream& operator>>(std::istream& in, TrenNormal& obj) {

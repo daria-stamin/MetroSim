@@ -5,7 +5,7 @@
 TrenLent::TrenLent() {
     this->capacitate = 35;
     this->viteza = 20;
-    this->pret = 1500;
+    this->pret = 1000;
 }
 
 TrenLent::TrenLent(int capacitate, float viteza, int pret) : Tren(capacitate, viteza, pret) {}
@@ -27,8 +27,8 @@ float TrenLent::calculeazaEficienta() const {
 }
 
 void TrenLent::afisare() const {
-    std::cout << "Tren Lent:\n";
-    std::cout << *this;
+    std::cout << "Tren Lent; ";
+    //std::cout << *this;
 }
 
 std::istream& operator>>(std::istream& in, TrenLent& obj) {

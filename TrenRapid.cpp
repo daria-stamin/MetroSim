@@ -26,8 +26,8 @@ float TrenRapid::calculeazaEficienta() const {
 }
 
 void TrenRapid::afisare() const {
-    std::cout << "Tren Rapid:\n";
-    std::cout << *this;
+    std::cout << "Tren Rapid; ";
+    //std::cout << *this;
 }
 
 std::istream& operator>>(std::istream& in, TrenRapid& obj) {

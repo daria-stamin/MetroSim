@@ -7,7 +7,7 @@
 #include "TrenRapid.h"
 
 Linie::Linie() {
-    this->pretBilet = 0;
+    this->pretBilet = 2.5;
 }
 Linie::Linie(std::vector<Statie> statii, std::vector<Tren*> trenuri, float pretBilet){
     this->statii = statii;
@@ -85,12 +85,16 @@ std::istream& operator>>(std::istream& in, Linie& obj) {
 std::ostream& operator<<(std::ostream& out, const Linie& obj) {
     out << "Pret bilet: " << obj.pretBilet << "\n";
 
-    out << "Statii:\n";
+    out << "Statii: ";
+    int ult=obj.statii.size();
     for (int i = 0; i < obj.statii.size(); i++) {
-        out << obj.statii[i] << "\n";
+        if (i == ult-1)
+            out << obj.statii[i];
+        else
+            out << obj.statii[i]<< " -> ";
     }
-
-    out << "Trenuri:\n";
+    out << "\n";
+    out << "Trenuri: ";
     for (int i = 0; i < obj.trenuri.size(); i++) {
         obj.trenuri[i]->afisare();
         out << "\n";

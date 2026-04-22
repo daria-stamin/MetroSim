@@ -2,11 +2,6 @@
 #include "Tren.h"
 #include <iostream>
 
-
-
-// virtual float calculeazaEficienta() const = 0;
-// virtual void afisare() const = 0;
-
 int Tren::nrTren = 0;
 
 Tren::Tren(): id(++nrTren){
@@ -61,7 +56,7 @@ std::istream& operator>>(std::istream& in, Tren& obj) {
 
 std::ostream& operator<<(std::ostream& out, const Tren& obj) {
     out << "  [Trenul #" << obj.id << "] ";
-    out << std::endl <<" Capacitatea trenului: " << obj.capacitate;
+    //out << std::endl <<" Capacitatea trenului: " << obj.capacitate;
     out << std::endl <<" Pretul trenului: " << obj.pret;
     out << std::endl <<" Viteza trenului: " << obj.viteza;
 

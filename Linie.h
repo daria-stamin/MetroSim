@@ -28,7 +28,6 @@ public:
     void adaugaStatie(const Statie& statie);
     void adaugaTren(Tren* t);
 
-    int getNrStatii() const;
 };
 
 

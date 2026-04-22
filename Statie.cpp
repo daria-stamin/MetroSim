@@ -1,6 +1,4 @@
-//
-// Created by daria on 4/15/2026.
-//
+
 #include <string>
 #include <iostream>
 #include "Statie.h"
@@ -8,22 +6,22 @@
 
 Statie::Statie() {
     this->name = "";
-    this->cererePAsageri = 0;
+
 }
-Statie::Statie(std::string name, int cererePAsageri) {
+Statie::Statie(std::string name) {
     this->name = name;
-    this->cererePAsageri = cererePAsageri;
+
 }
 Statie::Statie(const Statie& obj) {
     this->name = obj.name;
-    this->cererePAsageri = obj.cererePAsageri;
+
 }
 
 Statie &Statie::operator=(const Statie &obj) {
     if (this == &obj)
         return *this;
     this->name = obj.name;
-    this->cererePAsageri = obj.cererePAsageri;
+
 
     return *this;
 }
@@ -36,22 +34,17 @@ std::istream& operator>>(std::istream& in, Statie &obj) {
     std::cout << "  Name: ";
     in.getline(buff, 256);
     obj.name = buff;
-
-    std::cout << "  Cerere pasageri: ";
-    in >> obj.cererePAsageri;
-    in.ignore();
     return in;
 }
  std::ostream& operator<<(std::ostream& out, const Statie &obj) {
-    out << "Statia: " << obj.name;
-    out << std::endl <<" Cererea Pasagerilor: " << obj.cererePAsageri;
+    out << obj.name;
     return out;
 }
 
 int Statie::genereazaCerere() {
 
     srand(time(0));
-    int randomNum = (rand() % 601) + 500; // (nr random dintre 0-600) + 500 gen
+    int randomNum = (rand() % 601) + 200; // (nr random dintre 0-600) + 200 gen
     return randomNum;
 }
 
