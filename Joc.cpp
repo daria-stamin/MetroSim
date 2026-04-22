@@ -4,27 +4,63 @@
 #include "TrenLent.h"
 #include "TrenNormal.h"
 #include "TrenRapid.h"
-
 Joc::Joc() {
     bani = 1000;
     turaCurenta = 0;
-    maxTure = 60;
+    maxTure = 90;
+
+    indexLinieDeDeblocat = 0;
+
 
     Linie M2;
-    Statie s1("Pipera");
-    Statie s2("Victoriei");
-    Statie s3("Romana");
+    M2.adaugaStatieDisponibila(Statie("Pipera"));
+    M2.adaugaStatieDisponibila(Statie("Victoriei"));
+    M2.adaugaStatieDisponibila(Statie("Romana"));
+    M2.adaugaStatieDisponibila(Statie("Universitate"));
+    M2.adaugaStatieDisponibila(Statie("Unirii"));
+    M2.adaugaStatieDisponibila(Statie("Berceni"));
+
+    for (int i = 0; i < 3; i++) {
+        M2.adaugaStatie(M2.getUrmatoareaStatie());
+        M2.cresteIndex();
+    }
 
     Tren* t = new TrenLent(100, 50, 1000);
     M2.adaugaTren(t);
 
-    M2.adaugaStatie(s1);
-    M2.adaugaStatie(s2);
-    M2.adaugaStatie(s3);
-
     linii.push_back(M2);
-}
 
+    Linie M1;
+    M1.adaugaStatieDisponibila(Statie("Dristor 2"));
+    M1.adaugaStatieDisponibila(Statie("Obor"));
+    M1.adaugaStatieDisponibila(Statie("Gara de Nord"));
+    M1.adaugaStatieDisponibila(Statie("Eroilor"));
+    M1.adaugaStatieDisponibila(Statie("Izvor"));
+    M1.adaugaStatieDisponibila(Statie("Republica"));
+
+    for (int i = 0; i < 3; i++) {
+        M1.adaugaStatie(M1.getUrmatoareaStatie());
+        M1.cresteIndex();
+    }
+
+    liniiBlocate.push_back(M1);
+
+
+    Linie M3;
+    M3.adaugaStatieDisponibila(Statie("Preciziei"));
+    M3.adaugaStatieDisponibila(Statie("Gorjului"));
+    M3.adaugaStatieDisponibila(Statie("Lujerului"));
+    M3.adaugaStatieDisponibila(Statie("Timpuri Noi"));
+    M3.adaugaStatieDisponibila(Statie("Dristor 1"));
+    M3.adaugaStatieDisponibila(Statie("Anghel Saligny"));
+
+    for (int i = 0; i < 3; i++) {
+        M3.adaugaStatie(M3.getUrmatoareaStatie());
+        M3.cresteIndex();
+    }
+
+    liniiBlocate.push_back(M3);
+}
 
 void Joc::ruleazaJoc() {
     while (turaCurenta < maxTure) {
@@ -58,14 +94,28 @@ void Joc::afiseazaStatus() const {
 }
 
 void Joc::cumparaLinie(){
-    std::cout<<"Linie noua costa 20.000 de bani."<<std::endl;
-    if (bani >= 20000) {
-        Linie l;
-        linii.push_back(l);
-        bani -= 20000;
-    } else {
+    std::cout<<"Extindere costa 20.000 de bani.\n";
+
+    if (bani < 20000) {
         std::cout << "Nu ai bani!\n";
+        return;
     }
+
+    if (indexLinieDeDeblocat < liniiBlocate.size()) {
+
+        Linie l = liniiBlocate[indexLinieDeDeblocat];
+        linii.push_back(l);
+
+        bani -= 20000;
+
+        std::cout << "Ai deblocat o noua magistrala!\n";
+
+        indexLinieDeDeblocat++;
+
+    } else {
+        std::cout << "Ai deblocat toate magistralele!\n";
+    }
+
     std::cout<<"Press 0 to continue...\n";
     int x;
     std::cin>>x;
@@ -83,6 +133,9 @@ void Joc::cumparaTren(){
     std::cout<<"Un Tren Rapid costa 5.000 de bani."<<std::endl;
     int index;
     std::cout << "Alege linia: ";
+    for (int i=0; i < linii.size(); i++) {
+        std::cout<<i<<std::endl;
+    }
     std::cin >> index;
 
     std::cout<<"Ce fel de tren vrei sa cumperi:"<<std::endl;
@@ -137,27 +190,41 @@ void Joc::cumparaTren(){
     meniu();
 }
 void Joc::extindeLinie() {
-    std::cout<<"Statie noua costa 8.000 de bani."<<std::endl;
+    std::cout << "Statie noua costa 8000 bani.\n";
+
     int index;
     std::cout << "Alege linia: ";
     std::cin >> index;
 
-        // if (bani >= 300) {
-        //
-        //     linii[index].adaugaStatie(const &Statie statie);
-        // }
-
-    std::cout<<"Press 0 to continue...\n";
-    int x;
-    std::cin>>x;
-    while (x!=0) {
-        std::cout<<"Invalid number! Try again.\n";
-        std::cin>>x;
+    if (index < 0 || index >= linii.size()) {
+        std::cout << "Linie invalida!\n";
+        return;
     }
-    system("CLS");
-    meniu();
-}
 
+    Linie& l = linii[index];
+
+    if (bani < 8000) {
+        std::cout << "Nu ai bani!\n";
+        return;
+    }
+
+    if (!l.areStatiiDeDeblocat()) {
+        std::cout << "Nu mai exista statii de deblocat!\n";
+    } else {
+        Statie s = l.getUrmatoareaStatie();
+        l.adaugaStatie(s);
+        l.cresteIndex();
+
+        bani -= 8000;
+
+    }
+
+    std::cout << "Press 0 to continue...\n";
+    int x;
+    std::cin >> x;
+
+    system("CLS");
+}
 void Joc::afiseazaTot() const{
 
     for (int i = 0; i < linii.size(); i++) {

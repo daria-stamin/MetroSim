@@ -42,9 +42,7 @@ std::istream& operator>>(std::istream& in, Statie &obj) {
 }
 
 int Statie::genereazaCerere() {
-
-    srand(time(0));
-    int randomNum = (rand() % 601) + 200; // (nr random dintre 0-600) + 200 gen
+    int randomNum = (rand() % 151) + 100;
     return randomNum;
 }
 

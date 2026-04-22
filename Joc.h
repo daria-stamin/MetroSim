@@ -12,6 +12,8 @@ class Joc {
     int turaCurenta;
     int maxTure;
     std::vector<Linie> linii;
+    std::vector<Linie> liniiBlocate; 
+    int indexLinieDeDeblocat;
 public:
     Joc();
 

@@ -11,7 +11,9 @@
 class Linie {
     std::vector<Statie> statii;
     std::vector<Tren*> trenuri;
+    std::vector<Statie> statiiDisponibile;
     float pretBilet;
+    int indexUrmatoareaStatie;
 public:
     Linie();
     Linie(std::vector<Statie> statii, std::vector<Tren*> trenuri, float pretBilet);
@@ -23,12 +25,20 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Linie& obj);
     friend std::istream& operator>>(std::istream& is, Linie& obj);
 
-    int calculVenitTotal();
+    int calculVenitTotal() ;
 
     void adaugaStatie(const Statie& statie);
+    void adaugaStatieDisponibila(const Statie& s);
     void adaugaTren(Tren* t);
 
+    Statie getStatieDisponibila(int index) const;
+    bool areStatiiDeDeblocat() const;
+    Statie getUrmatoareaStatie() const;
+    void cresteIndex();
+    void seteazaIndex(int x);
 };
+
+
 
 
 #endif //METROSIM_LINIE_H

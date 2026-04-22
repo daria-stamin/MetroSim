@@ -8,31 +8,39 @@
 
 Linie::Linie() {
     this->pretBilet = 2.5;
+    this->indexUrmatoareaStatie = 0;
 }
 Linie::Linie(std::vector<Statie> statii, std::vector<Tren*> trenuri, float pretBilet){
     this->statii = statii;
     this->pretBilet = pretBilet;
+    this->indexUrmatoareaStatie = 0;
 }
 Linie::Linie(const Linie& obj) {
     this->statii = obj.statii;
+    this->statiiDisponibile = obj.statiiDisponibile;
     this->pretBilet = obj.pretBilet;
+    this->indexUrmatoareaStatie = obj.indexUrmatoareaStatie;
 
-    for (int i = 0; i < obj.trenuri.size(); i++) {
-        trenuri.push_back(obj.trenuri[i]);
+    for(int i = 0; i < obj.trenuri.size(); i++) {
+        trenuri.push_back(obj.trenuri[i]); // shallow copy (ok pentru acum)
     }
 }
 
 Linie &Linie::operator=(const Linie &obj) {
     if (this == &obj)
         return *this;
+
     this->statii = obj.statii;
+    this->statiiDisponibile = obj.statiiDisponibile;
     this->pretBilet = obj.pretBilet;
+    this->indexUrmatoareaStatie = obj.indexUrmatoareaStatie;
 
     trenuri.clear();
 
     for (int i = 0; i < obj.trenuri.size(); i++) {
         trenuri.push_back(obj.trenuri[i]);
     }
+
     return *this;
 }
 Linie::~Linie() {
@@ -102,7 +110,7 @@ std::ostream& operator<<(std::ostream& out, const Linie& obj) {
 
     return out;
 }
-int Linie::calculVenitTotal() {
+int Linie::calculVenitTotal(){
     int total = 0;
     int eficentaTrenBonus = 0;
     for (int i = 0; i < trenuri.size(); i++) {
@@ -111,7 +119,7 @@ int Linie::calculVenitTotal() {
     for (int i=0;i<statii.size();i++) {
         total += statii[i].genereazaCerere();
     }
-    return total * eficentaTrenBonus;
+    return total + eficentaTrenBonus;
 }
 
 void Linie::adaugaTren(Tren* t) {
@@ -120,4 +128,23 @@ void Linie::adaugaTren(Tren* t) {
 
 void Linie::adaugaStatie(const Statie& statie) {
     statii.push_back(statie);
+}
+void Linie::adaugaStatieDisponibila(const Statie& s) {
+    statiiDisponibile.push_back(s);
+}
+
+bool Linie::areStatiiDeDeblocat() const {
+    return indexUrmatoareaStatie < statiiDisponibile.size();
+}
+
+Statie Linie::getUrmatoareaStatie() const {
+    return statiiDisponibile[indexUrmatoareaStatie];
+}
+
+void Linie::cresteIndex() {
+    indexUrmatoareaStatie++;
+}
+
+void Linie::seteazaIndex(int x) {
+    indexUrmatoareaStatie = x;
 }
