@@ -82,7 +82,7 @@ void Joc::poveste() {
     *******************************************************************************************
 
     Ai 3 luni la dispozitie (90 de ture) sa maresti sistemul de trenuri si sa faci profit
-    companiei de 50.000 de bani.
+    companiei de 100.000 de bani.
 
     Succes!!
 
@@ -97,8 +97,17 @@ void Joc::ruleazaJoc() {
         meniu();
         ruleazaTura();
     }
+    int ok = 0;
+    if (indexLinieDeDeblocat == liniiBlocate.size())
+        ok = 1;
 
-    if (bani >= 50000)
+    for (int i=0;i<=2;i++) {
+        Linie& l = linii[i];
+        if (l.areStatiiDeDeblocat()) {
+            ok = 0;
+        }
+    }
+    if (bani >= 100000 && ok == 1)
         std::cout << "AI CASTIGAT!\n";
     else
         std::cout << "AI PIERDUT!\n";
@@ -265,6 +274,10 @@ void Joc::extindeLinie() {
 
     int index;
     std::cout << "Alege linia: ";
+    std::cout<<'\n';
+    for (int i=0;i<linii.size();i++)
+        std::cout<<i<<'\n';
+
     std::cin >> index;
 
     if (index < 0 || index >= linii.size()) {
