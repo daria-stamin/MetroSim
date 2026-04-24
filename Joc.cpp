@@ -4,6 +4,8 @@
 #include "TrenLent.h"
 #include "TrenNormal.h"
 #include "TrenRapid.h"
+#include "Exceptii.h"
+#include <fstream>
 Joc::Joc() {
     bani = 1000;
     turaCurenta = 0;
@@ -86,22 +88,69 @@ void Joc::poveste() {
 
     Succes!!
 
-    Press 0 to continue: )";
-    int x;
-    std::cin>>x;
+    Apasa 0 pentru a continua: )";
+    citesteZero();
 }
 
+int Joc::citesteOptiunemeniu() {
+    int x;
+    while (true) {
+        try {
+            std::cin >> x;
+            if (std::cin.fail()) {
+                throw InputInvalidException("Nu ai introdus un numar!");
+            }
+
+            if (x != 0 && x != 1 && x != 2 && x != 3) {
+                throw InputInvalidException("Trebuie sa introduci o optiune valida!");
+            }
+            system("CLS");
+            return x;
+        }
+        catch (const InputInvalidException& e) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << e.what() << " Incearca din nou: ";
+        }
+    }
+}
+int Joc::citesteZero() {
+    int x;
+    while (true) {
+        try {
+            std::cin >> x;
+            if (std::cin.fail()) {
+                throw InputInvalidException("Nu ai introdus un numar!");
+            }
+
+            if (x != 0) {
+                throw InputInvalidException("Trebuie sa introduci 0!");
+            }
+            system("CLS");
+            return x;
+        }
+        catch (const InputInvalidException& e) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << e.what() << " Incearca din nou: ";
+        }
+    }
+}
 void Joc::ruleazaJoc() {
     while (turaCurenta < maxTure) {
         afiseazaStatus();
-        meniu();
-        ruleazaTura();
+        bool continua = meniu();
+        if (continua) {
+            ruleazaTura();
+            salveaza();
+        }
+
     }
     int ok = 0;
     if (indexLinieDeDeblocat == liniiBlocate.size())
         ok = 1;
 
-    for (int i=0;i<=2;i++) {
+    for (int i = 0; i < linii.size(); i++) {
         Linie& l = linii[i];
         if (l.areStatiiDeDeblocat()) {
             ok = 0;
@@ -156,7 +205,8 @@ void Joc::meniuLoading() {
         }
         case(1):
         {
-
+            incarca();
+            ruleazaJoc();
             break;
         }
         case(2):
@@ -178,8 +228,7 @@ void Joc::cumparaLinie(){
     std::cout<<"Extindere costa 20.000 de bani.\n";
 
     if (bani < 20000) {
-        std::cout << "Nu ai bani!\n";
-        return;
+        throw BaniInsuficientiException();
     }
 
     if (indexLinieDeDeblocat < liniiBlocate.size()) {
@@ -197,14 +246,9 @@ void Joc::cumparaLinie(){
         std::cout << "Ai deblocat toate magistralele!\n";
     }
 
-    std::cout<<"Press 0 to continue...\n";
-    int x;
-    std::cin>>x;
-    while (x!=0) {
-        std::cout<<"Invalid number! Try again.\n";
-        std::cin>>x;
-    }
-    return;
+    std::cout<<"Apasa 0 pentru a continua: ";
+    citesteZero();
+    system("CLS");
 
 }
 void Joc::cumparaTren(){
@@ -217,6 +261,11 @@ void Joc::cumparaTren(){
         std::cout<<i<<std::endl;
     }
     std::cin >> index;
+
+    if (index < 0 || index >= linii.size()) {
+        throw IndexInvalidException();
+
+    }
 
     std::cout<<"Ce fel de tren vrei sa cumperi:"<<std::endl;
 
@@ -234,6 +283,9 @@ void Joc::cumparaTren(){
                 Tren* t = new TrenLent(100, 50, 1000);
                 linii[index].adaugaTren(t);
                 bani -= 1000;
+
+                system("CLS");
+                meniu();
             }
             break;
         }
@@ -243,6 +295,8 @@ void Joc::cumparaTren(){
                 Tren* t = new TrenNormal(100, 70, 3000);
                 linii[index].adaugaTren(t);
                 bani -= 3000;
+                system("CLS");
+                meniu();
             }
             break;
         }
@@ -252,6 +306,8 @@ void Joc::cumparaTren(){
                 Tren* t = new TrenRapid(100, 90, 5000);
                 linii[index].adaugaTren(t);
                 bani -= 5000;
+                system("CLS");
+                meniu();
             }
             break;
         }
@@ -259,14 +315,9 @@ void Joc::cumparaTren(){
 
 
 
-    std::cout<<"Press 0 to continue...\n";
-    int x;
-    std::cin>>x;
-    while (x!=0) {
-        std::cout<<"Invalid number! Try again.\n";
-        std::cin>>x;
-    }
-    return;
+    std::cout<<"Apasa 0 pentru a continua: ";
+    citesteZero();
+    system("CLS");
 
 }
 void Joc::extindeLinie() {
@@ -281,15 +332,15 @@ void Joc::extindeLinie() {
     std::cin >> index;
 
     if (index < 0 || index >= linii.size()) {
-        std::cout << "Linie invalida!\n";
-        return;
+        throw IndexInvalidException();
+
     }
 
     Linie& l = linii[index];
 
     if (bani < 8000) {
-        std::cout << "Nu ai bani!\n";
-        return;
+        throw BaniInsuficientiException();
+
     }
 
     if (!l.areStatiiDeDeblocat()) {
@@ -303,11 +354,10 @@ void Joc::extindeLinie() {
 
     }
 
-    std::cout << "Press 0 to continue...\n";
-    int x;
-    std::cin >> x;
+    std::cout<<"Apasa 0 pentru a continua: ";
+    citesteZero();
+    system("CLS");
 
-    return;
 }
 void Joc::afiseazaTot() const{
 
@@ -319,7 +369,7 @@ void Joc::afiseazaTot() const{
 }
 
 
-void Joc::meniu() {
+bool Joc::meniu() {
     std::cout << "\n1. Cumpara linie\n";
     std::cout << "2. Cumpara tren\n";
     std::cout << "3. Extinde linie\n";
@@ -327,50 +377,62 @@ void Joc::meniu() {
 
 
 
-    int x;
-    std::cout<<"Press the number:";
-    std::cin>>x;
-    while(x > 3)
-    {
-        std::cout<<"Invalid number! Please try again!"<<'\n';
-        std::cout<<"Press the number:";
-        std::cin>>x;
-        std::cout<<std::endl;
+    int x = citesteOptiunemeniu();
+    try {
+        switch(x)
+        {
+            case(1):
+                system("CLS");
+                cumparaLinie();
+                system("CLS");
+                afiseazaStatus();
+                meniu();
+                break;
+
+            case(2):
+                system("CLS");
+                cumparaTren();
+                system("CLS");
+                afiseazaStatus();
+                meniu();
+                break;
+
+            case(3):
+                system("CLS");
+                extindeLinie();
+                system("CLS");
+                afiseazaStatus();
+                meniu();
+                break;
+
+            case(0):
+                system("CLS");
+                return true;
+        }
     }
-    switch(x)
-    {
-        case(1):
-        {
-            system("CLS");
-            cumparaLinie();
-            system("CLS");
-            afiseazaStatus();
-            meniu();
-            break;
-        }
-        case(2):
-        {
-            system("CLS");
-            cumparaTren();
-            system("CLS");
-            afiseazaStatus();
-            meniu();
-            break;
-        }
-        case(3):
-        {
-            system("CLS");
-            extindeLinie();
-            system("CLS");
-            afiseazaStatus();
-            meniu();
-            break;
-        }case(0):
-        {
-            system("CLS");
-            break;
-        }
+    catch (const std::exception& e) {
+        std::cout << "Eroare: " << e.what() << "\n";
+        std::cout << "Apasa 0 pentru a continua: ";
+        citesteZero();
+    }
 
 
-    }
+}
+
+void Joc::salveaza() {
+    std::ofstream out("save.txt");
+
+    out << bani << " " << turaCurenta;
+}
+
+void Joc::incarca() {
+    std::ifstream in("save.txt");
+
+    int baniSave, turaSave;
+    in >> baniSave >> turaSave;
+
+    *this = Joc();
+
+    bani = baniSave;
+    turaCurenta = turaSave;
 }

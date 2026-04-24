@@ -16,19 +16,24 @@ class Joc {
     int indexLinieDeDeblocat;
 public:
     Joc();
+    int citesteZero();
+    int citesteOptiunemeniu();
     void meniuLoading();
     void poveste();
     void ruleazaJoc();
     void ruleazaTura();
 
     void afiseazaStatus() const;
-    void meniu();
+    bool meniu();
 
     void cumparaLinie();
     void cumparaTren();
     void extindeLinie();
 
     void afiseazaTot() const;
+
+    void incarca();
+    void salveaza();
 };
 
 

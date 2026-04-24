@@ -36,6 +36,8 @@ public:
     Statie getUrmatoareaStatie() const;
     void cresteIndex();
     void seteazaIndex(int x);
+
+
 };
 
 

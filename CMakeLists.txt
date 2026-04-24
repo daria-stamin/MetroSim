@@ -20,4 +20,5 @@ add_executable(MetroSim
         Linie.cpp
         Linie.h
         Joc.cpp
-        Joc.h)
+        Joc.h
+        Exceptii.h)
