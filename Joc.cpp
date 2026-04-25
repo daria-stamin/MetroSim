@@ -91,7 +91,6 @@ void Joc::poveste() {
     Apasa 0 pentru a continua: )";
     citesteZero();
 }
-
 int Joc::citesteOptiunemeniu() {
     int x;
     while (true) {
@@ -136,6 +135,46 @@ int Joc::citesteZero() {
         }
     }
 }
+
+void Joc::goodEnding() {
+    system("CLS");
+
+    std::cout << R"(
+
+
+                _    _                    _   _             _     _
+               / \  (_)      ___ __ _ ___| |_(_) __ _  __ _| |_  | |
+              / _ \ | |     / __/ _` / __| __| |/ _` |/ _` | __| | |
+             / ___ \| |    | (_| (_| \__ \ |_| | (_| | (_| | |_  |_|
+            /_/   \_\_|     \___\__,_|___/\__|_|\__, |\__,_|\__| (_)
+                                                |___/
+
+        Metrorex a decis sa te angajeze full time!
+
+     )";
+    std::cout<<"Apasa 0 pentru a iesi:";
+    citesteZero();
+}
+void Joc::badEnding() {
+    system("CLS");
+    std::cout << R"(
+
+
+                _    _            _              _       _     _
+               / \  (_)     _ __ (_) ___ _ __ __| |_   _| |_  | |
+              / _ \ | |    | '_ \| |/ _ \ '__/ _` | | | | __| | |
+             / ___ \| |    | |_) | |  __/ | | (_| | |_| | |_  |_|
+            /_/   \_\_|    | .__/|_|\___|_|  \__,_|\__,_|\__| (_)
+                           |_|
+
+        Oricum munca e overrated!
+
+     )";
+
+    std::cout<<"Apasa 0 pentru a iesi:";
+    citesteZero();
+}
+
 void Joc::ruleazaJoc() {
     while (turaCurenta < maxTure) {
         afiseazaStatus();
@@ -157,9 +196,9 @@ void Joc::ruleazaJoc() {
         }
     }
     if (bani >= 100000 && ok == 1)
-        std::cout << "AI CASTIGAT!\n";
+        goodEnding();
     else
-        std::cout << "AI PIERDUT!\n";
+        badEnding();
 }
 
 void Joc::ruleazaTura() {
@@ -205,6 +244,7 @@ void Joc::meniuLoading() {
         }
         case(1):
         {
+            system("CLS");
             incarca();
             ruleazaJoc();
             break;
@@ -284,8 +324,7 @@ void Joc::cumparaTren(){
                 linii[index].adaugaTren(t);
                 bani -= 1000;
 
-                system("CLS");
-                meniu();
+
             }
             break;
         }
@@ -295,8 +334,8 @@ void Joc::cumparaTren(){
                 Tren* t = new TrenNormal(100, 70, 3000);
                 linii[index].adaugaTren(t);
                 bani -= 3000;
-                system("CLS");
-                meniu();
+
+
             }
             break;
         }
@@ -306,13 +345,12 @@ void Joc::cumparaTren(){
                 Tren* t = new TrenRapid(100, 90, 5000);
                 linii[index].adaugaTren(t);
                 bani -= 5000;
-                system("CLS");
-                meniu();
+
+
             }
             break;
         }
     }
-
 
 
     std::cout<<"Apasa 0 pentru a continua: ";

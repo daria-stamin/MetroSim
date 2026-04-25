@@ -14,13 +14,10 @@ class Joc {
     std::vector<Linie> linii;
     std::vector<Linie> liniiBlocate;
     int indexLinieDeDeblocat;
-public:
-    Joc();
+
     int citesteZero();
     int citesteOptiunemeniu();
-    void meniuLoading();
     void poveste();
-    void ruleazaJoc();
     void ruleazaTura();
 
     void afiseazaStatus() const;
@@ -32,8 +29,19 @@ public:
 
     void afiseazaTot() const;
 
+    void goodEnding();
+    void badEnding();
+
+public:
+    Joc();
+
+    void meniuLoading();
+    void ruleazaJoc();
+
+
     void incarca();
     void salveaza();
+
 };
 
 

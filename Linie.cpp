@@ -22,7 +22,7 @@ Linie::Linie(const Linie& obj) {
     this->indexUrmatoareaStatie = obj.indexUrmatoareaStatie;
 
     for(int i = 0; i < obj.trenuri.size(); i++) {
-        trenuri.push_back(obj.trenuri[i]); // shallow copy (ok pentru acum)
+        trenuri.push_back(obj.trenuri[i]);
     }
 }
 
