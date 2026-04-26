@@ -477,13 +477,13 @@ void Joc::incarca() {
 
     *this = Joc();
     linii.clear();
-    liniiBlocate.clear();
+   // liniiBlocate.clear();
 
     bani = baniSave;
     turaCurenta = turaSave;
     int nrLiniiSalvate;
     in >> nrLiniiSalvate;
-    indexLinieDeDeblocat = 0;
+    //indexLinieDeDeblocat = 0;
     for (int i=0; i<nrLiniiSalvate;i++) {
         Linie M;
         int nrStatiiSalvate;
@@ -505,5 +505,6 @@ void Joc::incarca() {
         linii.push_back(M);
 
     }
+    indexLinieDeDeblocat = nrLiniiSalvate - 1;
 
 }
