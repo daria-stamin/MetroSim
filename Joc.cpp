@@ -113,6 +113,28 @@ int Joc::citesteOptiunemeniu() {
         }
     }
 }
+int Joc::citesteLoading() {
+    int x;
+    while (true) {
+        try {
+            std::cin >> x;
+            if (std::cin.fail()) {
+                throw InputInvalidException("Nu ai introdus un numar!");
+            }
+
+            if (x != 0 && x != 1 && x != 2) {
+                throw InputInvalidException("Trebuie sa introduci o optiune valida!");
+            }
+            system("CLS");
+            return x;
+        }
+        catch (const InputInvalidException& e) {
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << e.what() << " Incearca din nou: ";
+        }
+    }
+}
 int Joc::citesteZero() {
     int x;
     while (true) {
@@ -232,7 +254,7 @@ void Joc::meniuLoading() {
 
     Press the number: )";
     int n;
-    std::cin>>n;
+    n=citesteLoading();
     switch (n) {
         case(0):
         {

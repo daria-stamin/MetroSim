@@ -17,6 +17,8 @@ class Joc {
 
     int citesteZero();
     int citesteOptiunemeniu();
+    int citesteLoading();
+
     void poveste();
     void ruleazaTura();
 
