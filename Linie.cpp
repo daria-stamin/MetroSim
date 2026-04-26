@@ -162,52 +162,10 @@ const int Linie::getIndexUrmStatie() const {
 void Linie::setIndexStatie(int index) {
     this->indexUrmatoareaStatie = index;
 }
-
-void Linie::salveaza() {
-    std::ofstream out("save.txt");
-
-    out << statii.size()+3 << "\n";
-    for (int i = 0; i < statii.size()+3; i++) {
-        out << statii[i].getName() << "\n";
+void Linie::salveazaStatiile() {
+    std::ofstream out("save.txt", std::ios::app);
+    for (int i=0; i<statii.size();i++) {
+        out<<statii[i].getName()<<std::endl;
     }
 
-
-}
-
-void Linie::incarca() {
-    std::ifstream in("save.txt");
-
-    in >> pretBilet;
-
-    int nrStatii;
-    in >> nrStatii;
-
-    statii.clear();
-
-    for (int i = 0; i < nrStatii+3; i++) {
-        std::string nume;
-        in >> nume;
-        statii.push_back(Statie(nume));
-    }
-
-
-    /*int nrTrenuri;
-    in >> nrTrenuri;
-
-    trenuri.clear();
-
-    for (int i = 0; i < nrTrenuri; i++) {
-        char tip;
-        in >> tip;
-        Tren* t = nullptr;
-
-        if (tip == 'L')
-            t = new TrenLent(100, 50, 1000);
-        else if (tip == 'N')
-            t = new TrenNormal(100, 70, 3000);
-        else if (tip == 'R')
-            t = new TrenRapid(100, 90, 5000);
-
-        trenuri.push_back(t);
-    }*/
 }
