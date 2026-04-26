@@ -460,7 +460,15 @@ bool Joc::meniu() {
 void Joc::salveaza() {
     std::ofstream out("save.txt");
 
-    out << bani << " " << turaCurenta;
+    out << bani << " " << turaCurenta << "\n";
+
+    out<<2.5<<"\n";
+
+    out << linii.size() << "\n";
+
+    for (int i = 0; i < linii.size(); i++) {
+        linii[i].salveaza();
+    }
 }
 
 void Joc::incarca() {
@@ -468,9 +476,19 @@ void Joc::incarca() {
 
     int baniSave, turaSave;
     in >> baniSave >> turaSave;
-
     *this = Joc();
 
     bani = baniSave;
     turaCurenta = turaSave;
+
+    int nrLinii;
+    in >> nrLinii;
+
+    linii.clear();
+
+    for (int i = 0; i < nrLinii; i++) {
+        Linie l;
+        l.incarca();
+        linii.push_back(l);
+    }
 }

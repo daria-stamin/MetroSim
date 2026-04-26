@@ -44,6 +44,9 @@ public:
     const int getIndexUrmStatie() const;
     void setIndexStatie(int index);
 
+    void salveaza();
+    void incarca();
+
 };
 
 
