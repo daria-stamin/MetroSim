@@ -33,9 +33,9 @@ Joc::Joc() {
     linii.push_back(M2);
 
     Linie M1;
-    M1.adaugaStatieDisponibila(Statie("Dristor 2"));
+    M1.adaugaStatieDisponibila(Statie("Dristor_2"));
     M1.adaugaStatieDisponibila(Statie("Obor"));
-    M1.adaugaStatieDisponibila(Statie("Gara de Nord"));
+    M1.adaugaStatieDisponibila(Statie("Gara_de_Nord"));
     M1.adaugaStatieDisponibila(Statie("Eroilor"));
     M1.adaugaStatieDisponibila(Statie("Izvor"));
     M1.adaugaStatieDisponibila(Statie("Republica"));
@@ -52,9 +52,9 @@ Joc::Joc() {
     M3.adaugaStatieDisponibila(Statie("Preciziei"));
     M3.adaugaStatieDisponibila(Statie("Gorjului"));
     M3.adaugaStatieDisponibila(Statie("Lujerului"));
-    M3.adaugaStatieDisponibila(Statie("Timpuri Noi"));
-    M3.adaugaStatieDisponibila(Statie("Dristor 1"));
-    M3.adaugaStatieDisponibila(Statie("Anghel Saligny"));
+    M3.adaugaStatieDisponibila(Statie("Timpuri_Noi"));
+    M3.adaugaStatieDisponibila(Statie("Dristor_1"));
+    M3.adaugaStatieDisponibila(Statie("Anghel_Saligny"));
 
     for (int i = 0; i < 3; i++) {
         M3.adaugaStatie(M3.getUrmatoareaStatie());
@@ -464,8 +464,7 @@ void Joc::salveaza() {
     out<< linii.size()<<std::endl;
 
     for(int i=0; i<linii.size(); i++){
-        
-        linii[i].salveazaStatiile();
+        linii[i].salveazaStatiile(i);
 
     }
 }
@@ -480,5 +479,29 @@ void Joc::incarca() {
 
     bani = baniSave;
     turaCurenta = turaSave;
+    int nrLiniiSalvate;
+    in >> nrLiniiSalvate;
+    indexLinieDeDeblocat = 0;
+    for (int i=0; i<nrLiniiSalvate;i++) {
+        Linie M;
+        int nrStatiiSalvate;
+        in>>nrStatiiSalvate;
+        for (int j=0; j<nrStatiiSalvate; j++) {
+            std::string statie;
+            in>>statie;
+            M.adaugaStatieDisponibila(Statie(statie));
+
+        }
+        for (int i = 0; i < nrStatiiSalvate; i++) {
+            M.adaugaStatie(M.getUrmatoareaStatie());
+            M.cresteIndex();
+            
+        }
+        Tren* t = new TrenLent(100, 50, 1000);
+        M.adaugaTren(t);
+
+        linii.push_back(M);
+
+    }
 
 }
