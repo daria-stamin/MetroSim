@@ -476,6 +476,8 @@ void Joc::incarca() {
     in >> baniSave >> turaSave;
 
     *this = Joc();
+    linii.clear();
+    liniiBlocate.clear();
 
     bani = baniSave;
     turaCurenta = turaSave;
