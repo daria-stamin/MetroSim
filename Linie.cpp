@@ -148,3 +148,18 @@ void Linie::cresteIndex() {
 void Linie::seteazaIndex(int x) {
     indexUrmatoareaStatie = x;
 }
+
+const float Linie::getPretBilet() const {
+    return pretBilet;
+}
+void Linie::setPretBilet(float pretnou) {
+    this->pretBilet = pretnou;
+}
+
+const int Linie::getIndexUrmStatie() const {
+    return indexUrmatoareaStatie;
+}
+void Linie::setIndexStatie(int index) {
+    this->indexUrmatoareaStatie = index;
+}
+

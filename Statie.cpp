@@ -46,3 +46,10 @@ int Statie::genereazaCerere() {
     return randomNum;
 }
 
+const std::string Statie::getName() const {
+    return name;
+}
+
+void Statie::setName(std::string) {
+    this->name = name;
+}

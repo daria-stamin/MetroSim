@@ -24,6 +24,7 @@ public:
 
     virtual float calculeazaEficienta() const = 0;
     virtual void afisare() const = 0;
+
 };
 
 

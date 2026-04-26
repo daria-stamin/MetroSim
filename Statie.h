@@ -27,7 +27,8 @@ public:
 
     int genereazaCerere();
 
-    //int getCerere() const;
+    const std::string getName() const;
+    void setName(std::string);
 };
 
 

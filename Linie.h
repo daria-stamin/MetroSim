@@ -32,11 +32,17 @@ public:
     void adaugaTren(Tren* t);
 
     Statie getStatieDisponibila(int index) const;
+
     bool areStatiiDeDeblocat() const;
     Statie getUrmatoareaStatie() const;
     void cresteIndex();
     void seteazaIndex(int x);
 
+    const float getPretBilet() const;
+    void setPretBilet(float pretnou);
+
+    const int getIndexUrmStatie() const;
+    void setIndexStatie(int index);
 
 };
 
