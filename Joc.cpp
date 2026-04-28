@@ -546,8 +546,27 @@ void Joc::incarca() {
             M.cresteIndex();
         }
 
-        Tren* t = new TrenLent(100, 50, 1000);
-        M.adaugaTren(t);
+        int nrTrenuriSalvate;
+        in>>nrTrenuriSalvate;
+
+        for(int k=0;k<nrTrenuriSalvate;k++) {
+            char tipTren;
+            in>>tipTren;
+            if (tipTren == 'L') {
+                Tren* t = new TrenLent();
+                M.adaugaTren(t);
+            }
+            else if (tipTren == 'N') {
+                Tren* t = new TrenNormal();
+                M.adaugaTren(t);
+            }
+            else if (tipTren == 'R') {
+                Tren* t = new TrenRapid();
+                M.adaugaTren(t);
+            }
+
+        }
+
         linii.push_back(M);
     }
 

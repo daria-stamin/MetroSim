@@ -4,7 +4,7 @@
 
 TrenRapid::TrenRapid() {
     this->capacitate = 15;
-    this->viteza = 70;
+    this->viteza = 90;
     this->pret = 5000;
 }
 

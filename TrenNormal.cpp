@@ -7,7 +7,7 @@
 
 TrenNormal::TrenNormal() {
     this->capacitate = 20;
-    this->viteza = 50;
+    this->viteza = 70;
     this->pret = 3000;
 }
 

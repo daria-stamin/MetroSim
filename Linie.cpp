@@ -169,8 +169,16 @@ void Linie::salveazaStatiile(int i) {
   /*  for (int i=0; i<statii.size();i++) {
         out<<statii[i].getName()<<std::endl;
     }*/
-    /*for (int i=0;i<trenuri.size();i++) {
 
-    }*/
+    out<<trenuri.size()<<"\n";
+    for(int i=0; i<trenuri.size(); i++) {
+        if(dynamic_cast<TrenLent*>(trenuri[i]))
+            out<<"L ";
+        else if(dynamic_cast<TrenNormal*>(trenuri[i]))
+            out<<"N ";
+        else if(dynamic_cast<TrenRapid*>(trenuri[i]))
+            out<<"R ";
+
+    }
 
 }

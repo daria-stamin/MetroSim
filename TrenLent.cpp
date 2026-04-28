@@ -4,7 +4,7 @@
 
 TrenLent::TrenLent() {
     this->capacitate = 35;
-    this->viteza = 20;
+    this->viteza = 50;
     this->pret = 1000;
 }
 
