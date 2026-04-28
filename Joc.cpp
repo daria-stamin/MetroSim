@@ -499,34 +499,57 @@ void Joc::incarca() {
 
     *this = Joc();
     linii.clear();
-   // liniiBlocate.clear();
 
     bani = baniSave;
     turaCurenta = turaSave;
+
     int nrLiniiSalvate;
     in >> nrLiniiSalvate;
-    //indexLinieDeDeblocat = 0;
-    for (int i=0; i<nrLiniiSalvate;i++) {
-        Linie M;
-        int nrStatiiSalvate;
-        in>>nrStatiiSalvate;
-        for (int j=0; j<nrStatiiSalvate; j++) {
-            std::string statie;
-            in>>statie;
-            M.adaugaStatieDisponibila(Statie(statie));
 
-        }
-        for (int i = 0; i < nrStatiiSalvate; i++) {
+    std::vector<Linie> reconstruimLinii;
+
+    Linie M2;
+    M2.adaugaStatieDisponibila(Statie("Pipera"));
+    M2.adaugaStatieDisponibila(Statie("Victoriei"));
+    M2.adaugaStatieDisponibila(Statie("Romana"));
+    M2.adaugaStatieDisponibila(Statie("Universitate"));
+    M2.adaugaStatieDisponibila(Statie("Unirii"));
+    M2.adaugaStatieDisponibila(Statie("Berceni"));
+    reconstruimLinii.push_back(M2);
+
+    Linie M1;
+    M1.adaugaStatieDisponibila(Statie("Dristor_2"));
+    M1.adaugaStatieDisponibila(Statie("Obor"));
+    M1.adaugaStatieDisponibila(Statie("Gara_de_Nord"));
+    M1.adaugaStatieDisponibila(Statie("Eroilor"));
+    M1.adaugaStatieDisponibila(Statie("Izvor"));
+    M1.adaugaStatieDisponibila(Statie("Republica"));
+    reconstruimLinii.push_back(M1);
+
+    Linie M3;
+    M3.adaugaStatieDisponibila(Statie("Preciziei"));
+    M3.adaugaStatieDisponibila(Statie("Gorjului"));
+    M3.adaugaStatieDisponibila(Statie("Lujerului"));
+    M3.adaugaStatieDisponibila(Statie("Timpuri_Noi"));
+    M3.adaugaStatieDisponibila(Statie("Dristor_1"));
+    M3.adaugaStatieDisponibila(Statie("Anghel_Saligny"));
+    reconstruimLinii.push_back(M3);
+
+    for (int i = 0; i < nrLiniiSalvate; i++) {
+
+        Linie M = reconstruimLinii[i];
+        int nrStatiiSalvate;
+        in >> nrStatiiSalvate;
+
+        for (int j = 0; j < nrStatiiSalvate; j++) {
             M.adaugaStatie(M.getUrmatoareaStatie());
             M.cresteIndex();
-            
         }
+
         Tren* t = new TrenLent(100, 50, 1000);
         M.adaugaTren(t);
-
         linii.push_back(M);
-
     }
-    indexLinieDeDeblocat = nrLiniiSalvate - 1;
 
+    indexLinieDeDeblocat = nrLiniiSalvate - 1;
 }

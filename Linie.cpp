@@ -166,8 +166,11 @@ void Linie::salveazaStatiile(int i) {
     std::ofstream out("save.txt", std::ios::app);
    // out<<i<<std::endl;
     out<<statii.size()<<std::endl;
-    for (int i=0; i<statii.size();i++) {
+  /*  for (int i=0; i<statii.size();i++) {
         out<<statii[i].getName()<<std::endl;
-    }
+    }*/
+    /*for (int i=0;i<trenuri.size();i++) {
+
+    }*/
 
 }
